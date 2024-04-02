@@ -109,7 +109,7 @@ if __name__ == "__main__":
     neural_network.modify_output_layer()
 
     criterion = nn.CrossEntropyLoss()
-    optimizers = [optim.Adam, optim.Adagrad, optim.RMSprop]
+    optimizers = [optim.Adam, optim.Adagrad]
 
     for optimizer_class in optimizers:
         print(f"Training with optimizer: {optimizer_class.__name__}")
