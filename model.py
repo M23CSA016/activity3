@@ -103,19 +103,24 @@ if __name__ == "__main__":
     train_loader = DataLoader(root='./content', transform=transform, batch_size=64, train=True).loader
     test_loader = DataLoader(root='./content', transform=transform, batch_size=64, train=False).loader
 
-    resnet = models.resnet101(pretrained=True)
+    resnet = models.densenet121(pretrained=True)
+    # resnet = models.resnet101(pretrained=True)
     neural_network = NeuralNetwork(pretrained_model=resnet, num_classes=10)
     neural_network.freeze_model_params()
     neural_network.modify_output_layer()
 
     criterion = nn.CrossEntropyLoss()
-    optimizers = [optim.Adam, optim.Adagrad, optim.RMSprop]
+    # optimizers = [optim.Adam, optim.Adagrad, optim.RMSprop]
 
-    for optimizer_class in optimizers:
-        print(f"Training with optimizer: {optimizer_class.__name__}")
-        optimizer = optimizer_class(neural_network.model.parameters())
-        train_losses, train_accuracy = neural_network.train_model(train_loader, criterion, optimizer)
-        plot_curves(train_losses, train_accuracy)
+    optimizer = optim.Adam(neural_network.model.parameters())
+    train_losses, train_accuracy = neural_network.train_model(train_loader, criterion, optimizer)
+    plot_curves(train_losses, train_accuracy)
+    
+    # for optimizer_class in optimizers:
+    #     print(f"Training with optimizer: {optimizer_class.__name__}")
+    #     optimizer = optimizer_class(neural_network.model.parameters())
+    #     train_losses, train_accuracy = neural_network.train_model(train_loader, criterion, optimizer)
+    #     plot_curves(train_losses, train_accuracy)
 
     top5_accuracy = neural_network.evaluate_top5_accuracy(test_loader)
     print(f"Final Top-5 Test Accuracy: {top5_accuracy:.2f}%")
