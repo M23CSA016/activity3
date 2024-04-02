@@ -110,7 +110,7 @@ if __name__ == "__main__":
     neural_network.modify_output_layer()
 
     criterion = nn.CrossEntropyLoss()
-    # optimizers = [optim.Adam, optim.Adagrad, optim.RMSprop]
+    optimizers = [optim.Adam, optim.Adagrad]
 
     optimizer = optim.Adam(neural_network.model.parameters())
     train_losses, train_accuracy = neural_network.train_model(train_loader, criterion, optimizer)
