@@ -95,7 +95,7 @@ def plot_curves(train_losses, train_accuracy):
 
 if __name__ == "__main__":
     transform = transforms.Compose([
-        transforms.Resize((224, 224)),
+        transforms.RandomCrop((224, 224)),
         transforms.Grayscale(num_output_channels=3),
         transforms.ToTensor(),
     ])
