@@ -96,6 +96,7 @@ def plot_curves(train_losses, train_accuracy):
 if __name__ == "__main__":
     transform = transforms.Compose([
         transforms.Resize((224, 224)),
+        transforms.RandomCrop((224, 224)),
         transforms.Grayscale(num_output_channels=3),
         transforms.ToTensor(),
     ])
@@ -109,7 +110,7 @@ if __name__ == "__main__":
     neural_network.modify_output_layer()
 
     criterion = nn.CrossEntropyLoss()
-    optimizers = [optim.Adam, optim.Adagrad]
+    optimizers = [optim.Adam, optim.Adagrad, optim.RMSprop]
 
     for optimizer_class in optimizers:
         print(f"Training with optimizer: {optimizer_class.__name__}")
